@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { UploadDropzone } from '@uploadthing/react';
 import { UploadButton } from '../../../utils/uploadthing';
-import { Check, ChevronsUpDown, Ellipsis } from "lucide-react"
+import { Check, ChevronsUpDown, Ellipsis, Search } from "lucide-react"
 import {
   Command,
   CommandEmpty,
@@ -50,7 +50,7 @@ const Businesses = () => {
   const [value, setValue] = React.useState("")
   const [categories, setCategories] = useState([]);
   const [businesses, setBusinesses] = useState([]);
-  
+  const [searchBusiness,setSearchBusiness] = useState('');
   const [newBusiness, setNewBusiness] = useState({
     name: '',
     category: '',
@@ -139,7 +139,7 @@ const Businesses = () => {
   };
   return (
     <div>
-      <div className='fixed bg-white border-b border-b-2 p-2 w-full z-30'>
+      <div className='fixed bg-white border-b border-b-2 p-2 w-full z-30  px-4 flex gap-40'>
       <Dialog >
   <DialogTrigger>
        <div className='flex items-center justify-between gap-10 rounded-sm p-2 bg-primary'>
@@ -256,6 +256,11 @@ const Businesses = () => {
   </DialogContent>
   
 </Dialog>
+  <div className='flex items-center gap-2 border border-primary w-[50%] rounded-lg p-2'>
+    <Search className='text-primary font-bold' />
+    <input type='text'className='outline-none border-none' placeholder='Search for Added Businesses....' value={searchBusiness} onChange={(e)=>setSearchBusiness(e.target.value)} />
+    
+  </div>
 </div>
    
      <div className='p-3 pt-[100px]  z-0'>
@@ -270,7 +275,9 @@ const Businesses = () => {
           </tr>
         </thead>
         <tbody className='border'>
-          {businesses.map(business => (
+          {businesses.filter((item)=>{
+            return searchBusiness.toLowerCase() ===""?item:item.name.toLowerCase().includes(searchBusiness)
+          }).map(business =>(
             <tr key={business._id} className='border'>
               <td className='border px-3 py-2'>{business.name}</td>
               <td className='border px-3 py-2'>{business.category.name}</td>

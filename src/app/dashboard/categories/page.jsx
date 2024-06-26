@@ -4,22 +4,15 @@ import axios from 'axios'
 
 import { Button } from "@/components/ui/button"
 import { buttonVariants } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Ellipsis } from 'lucide-react'
+
+import {  Search } from 'lucide-react'
 
 const Categories = () => {
   
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
   const [editingCategory, setEditingCategory] = useState(null);
-
+  const [searchCategory,setSearchCategory] = useState('');
    
   useEffect(() => {
     fetchCategories();
@@ -54,7 +47,7 @@ const Categories = () => {
   
   return (
     <div className='flex flex-col gap-6'>
-      <div className='fixed border-b border-primary p-2 bg-white w-full z-30'>
+      <div className='fixed border-b border-primary p-2 bg-white w-full z-30 flex items-center gap-40'>
       <div className=' border border-primary p-2 rounded-lg w-fit'>
       <input
           type="text"
@@ -64,6 +57,10 @@ const Categories = () => {
           className='outline-none p-2 border-l border-t border-b'
         />
         <Button onClick={addCategory}>{editingCategory ? 'Update Category' : 'Add Category'}</Button>
+      </div>
+      <div className='flex items-center gap-2 border border-primary p-2 rounded-lg w-[40%]'>
+        <Search className='text-primary font-bold'/>
+        <input type='text' className='outline-none border-none' placeholder='Search for Added Categories...' value={searchCategory} onChange={(e)=>setSearchCategory(e.target.value)}/>
       </div>
     </div>
     <div className='p-10 z-0 pt-[95px]'>
@@ -76,7 +73,9 @@ const Categories = () => {
           </tr>
         </thead>
         <tbody className='border'>
-          {categories.map(category => (
+          {categories.filter((item)=>{
+            return searchCategory.toLowerCase() ===""?item:item.name.toLowerCase().includes(searchCategory)
+          }).map(category => (
             <tr key={category._id} className='border'>
               <td className='border px-3 py-2'>{category.name}</td>
               <td className='border px-3 py-2'>    
@@ -91,6 +90,7 @@ const Categories = () => {
           ))}
         </tbody>
       </table>
+      
       </div>
     </div>
   )
