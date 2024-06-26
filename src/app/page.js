@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Blocks, BriefcaseBusiness, Link } from "lucide-react";
 import Image from "next/image";
 
@@ -7,7 +8,7 @@ export default function Home() {
       <div className='flex flex-col items-center justify-center gap-10 pt-40 px-[70px] pb-[250px] '>
       <h1 className='text-primary text-4xl text-white'>Welcome, Dear Admin Click the button below to go to the Dashbaord</h1>
       <div className='pt-6'>
-          <Link href="/dashboard" className="bg-primary text-white rounded-lg">Go To Dashboard</Link>
+         <Button className='bg-white'><Link href="/dashboard" className="text-primary rounded-lg">Go To Dashboard</Link></Button>
       </div>
       </div>
     </div>
