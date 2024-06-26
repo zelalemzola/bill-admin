@@ -3,7 +3,7 @@ import { Blocks, BriefcaseBusiness } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
-const SideBar = () => {
+const Sidebar = () => {
   return (
     <div className='h-[100%] sitcky'>
     <div className='flex flex-col  pt-8 '>
@@ -25,4 +25,4 @@ const SideBar = () => {
   )
 }
 
-export default SideBar
+export default Sidebar

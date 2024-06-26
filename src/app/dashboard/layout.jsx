@@ -1,7 +1,9 @@
 import React from 'react'
-
-import Sidebar from './_components/SideBar'
 import Navbar from './_components/Navbar'
+import Sidebar from './_components/Sidebar'
+
+
+
 const layout = ({children}) => {
   return (
     <div className='w-full '>

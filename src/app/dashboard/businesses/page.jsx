@@ -213,7 +213,7 @@ const Businesses = () => {
         }}
       />
       </div>
-      {newBusiness.bannerImageUrl&&<Image src={newBusiness.bannerImageUrl} className='p-3' width={120} height={150}/>}
+      {newBusiness.bannerImageUrl&&<Image src={newBusiness.bannerImageUrl} className='p-3' width={120} height={150} alt=""/>}
         </div>
         <div className='flex gap-2 items-center'>
           <h1 className='text-primary font-bold'>Details</h1>
@@ -350,7 +350,7 @@ const Businesses = () => {
         }}
       />
       </div>
-      {newBusiness.bannerImageUrl&&<Image src={newBusiness.bannerImageUrl} className='p-3' width={120} height={150}/>}
+      {newBusiness.bannerImageUrl&&<Image src={newBusiness.bannerImageUrl} className='p-3' width={120} height={150} alt=""/>}
         </div>
         <div className='flex gap-2 items-center'>
           <h1 className='text-primary font-bold'>Details</h1>
