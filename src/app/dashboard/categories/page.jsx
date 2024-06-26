@@ -60,7 +60,7 @@ const Categories = () => {
       </div>
       <div className='flex items-center gap-2 border border-primary p-2 rounded-lg w-[40%]'>
         <Search className='text-primary font-bold'/>
-        <input type='text' className='outline-none border-none' placeholder='Search for Added Categories...' value={searchCategory} onChange={(e)=>setSearchCategory(e.target.value)}/>
+        <input type='text' className='outline-none border-none w-full' placeholder='Search for Added Categories...' value={searchCategory} onChange={(e)=>setSearchCategory(e.target.value)}/>
       </div>
     </div>
     <div className='p-10 z-0 pt-[95px]'>

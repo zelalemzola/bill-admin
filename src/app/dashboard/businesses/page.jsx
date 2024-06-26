@@ -258,7 +258,7 @@ const Businesses = () => {
 </Dialog>
   <div className='flex items-center gap-2 border border-primary w-[50%] rounded-lg p-2'>
     <Search className='text-primary font-bold' />
-    <input type='text'className='outline-none border-none' placeholder='Search for Added Businesses....' value={searchBusiness} onChange={(e)=>setSearchBusiness(e.target.value)} />
+    <input type='text'className='outline-none border-none w-full' placeholder='Search for Added Businesses....' value={searchBusiness} onChange={(e)=>setSearchBusiness(e.target.value)} />
     
   </div>
 </div>
