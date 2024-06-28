@@ -10,7 +10,7 @@ const layout = ({children}) => {
     <Navbar/>
     <div className='flex pt-[53px] z-0 '>
         <div className='w-1/6 fixed h-screen border-r border-r-primary '><Sidebar/></div>
-        <div className='pl-[230px]'>{children}</div>
+        <div className='pl-[17%]'>{children}</div>
     </div>
     </div>
   )

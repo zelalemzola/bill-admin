@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { UploadDropzone } from '@uploadthing/react';
 import { UploadButton } from '../../../utils/uploadthing';
-import { Check, ChevronsUpDown, Ellipsis, Search } from "lucide-react"
+import { Check, ChevronsUpDown, Ellipsis, Search } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -12,13 +12,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command"
+} from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import Image from 'next/image';
 import {
   Dialog,
@@ -27,7 +27,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { Plus, PlusCircle, PlusCircleIcon, PlusIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -42,7 +42,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@/components/ui/drawer";
 import { Textarea } from '@/components/ui/textarea';
 
 const Businesses = () => {
@@ -93,10 +93,25 @@ const Businesses = () => {
     setNewBusiness({ ...newBusiness, locations: updatedLocations });
   };
 
+  const isFormValid = () => {
+    const { name, category, details, locations } = newBusiness;
+    return (
+      name.trim() &&
+      category &&
+      details.trim() &&
+      locations.every(location => location.address.trim() && location.contact.trim())
+    );
+  };
+
   const addBusiness = async () => {
+    if (!isFormValid()) {
+      alert('All fields are required.');
+      return;
+    }
+
     try {
       if (editingBusiness) {
-        const response = await axios.put(`/api/businesses/${editingBusiness._id}`,  { id: editingBusiness._id, ...newBusiness });
+        const response = await axios.put(`/api/businesses/${editingBusiness._id}`, { id: editingBusiness._id, ...newBusiness });
         const updatedBusiness = response.data.business;
         setBusinesses(businesses.map(bus => bus._id === editingBusiness._id ? updatedBusiness : bus));
         setEditingBusiness(null);
@@ -116,11 +131,11 @@ const Businesses = () => {
       console.error("Failed to add or edit business:", error);
     }
   };
-  
+
   const editBusiness = (business) => {
     setNewBusiness({
       name: business.name,
-      category: business.category._id,  // Ensure this is the ObjectId
+      category: business.category._id,
       bannerImageUrl: business.bannerImageUrl,
       bannerImageKey: business.bannerImageKey,
       locations: business.locations,
@@ -128,6 +143,7 @@ const Businesses = () => {
     });
     setEditingBusiness(business);
   };
+
   const deleteBusiness = async (id) => {
     await axios.delete(`/api/businesses/${id}`, { params: { id: id } });
     setBusinesses(businesses.filter(business => business._id !== id));
@@ -253,12 +269,12 @@ const Businesses = () => {
                 </div>
               </ScrollArea>
               <div>
-                <Button onClick={addBusiness} className='mx-auto bg-green-700 hover:bg-green-800 text-white'>Add Business</Button>
+                <Button onClick={addBusiness} className='mx-auto bg-green-700 hover:bg-green-800 text-white' disabled={!isFormValid()}>Add Business</Button>
               </div>
             </div>
           </DialogContent>
         </Dialog>
-        <div className='flex items-center gap-2 border border-primary w-[50%] rounded-lg p-2'>
+        <div className='flex items-center gap-2 border border-primary w-[30%] rounded-lg p-2'>
           <Search className='text-primary font-bold' />
           <input type='text' className='outline-none border-none w-full' placeholder='Search for Added Businesses....' value={searchBusiness} onChange={(e) => setSearchBusiness(e.target.value)} />
         </div>
@@ -386,7 +402,7 @@ const Businesses = () => {
                         </div>
                       </div>
                       <DrawerFooter>
-                        <Button onClick={addBusiness} className='mx-auto bg-green-700 hover:bg-green-800 text-white'>Update Business</Button>
+                        <Button onClick={addBusiness} className='mx-auto bg-green-700 hover:bg-green-800 text-white' disabled={!isFormValid()}>Update Business</Button>
                         <DrawerClose>
                           <h1 className='text-white'>If you are done updating click here to close the modal</h1>
                           <Button variant="destructive">Close</Button>

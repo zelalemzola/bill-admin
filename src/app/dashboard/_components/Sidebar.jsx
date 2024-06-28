@@ -5,7 +5,7 @@ import React from 'react'
 
 const Sidebar = () => {
   return (
-    <div className='h-[100%] sitcky'>
+    <div className='h-[100%] sitcky bg-white'>
     <div className='flex flex-col  pt-8 '>
        <div className='border-b border-t border-t-primary border-b-primary p-3'>
         <Link href='/dashboard/categories' className='flex items-center justify-evenly text-primary hover:text-white hover:bg-primary p-3 rounded-lg'>

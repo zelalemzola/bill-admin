@@ -2,7 +2,7 @@
 import {connectdb} from "../../../../lib/config/db"
 import Category from '../../../../lib/models/Category';
 import { NextResponse } from 'next/server';
-
+import Business from '../../../../lib/models/Business';
 const LoadDB = async () => {
   await connectdb();
 };
@@ -16,8 +16,17 @@ export async function PUT(request) {
 }
 
 export async function DELETE(request) {
-
   const id = await request.nextUrl.searchParams.get('id');
-  await Category.findByIdAndDelete(id);
-  return NextResponse.json({ msg: 'Category Deleted' });
+
+  try {
+    // Delete all businesses with the given category ID
+    await Business.deleteMany({ category: id });
+
+    // Delete the category
+    await Category.findByIdAndDelete(id);
+
+    return NextResponse.json({ msg: 'Category and associated businesses deleted' });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
