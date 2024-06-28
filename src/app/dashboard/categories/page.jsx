@@ -65,7 +65,7 @@ const Categories = () => {
             {editingCategory ? 'Update Category' : 'Add Category'}
           </Button>
         </div>
-        <div className='flex items-center gap-2 border border-primary p-2 rounded-lg w-[40%]'>
+        <div className='flex items-center gap-2 border border-primary p-2 rounded-lg w-[30%]'>
           <Search className='text-primary font-bold'/>
           <input
             type='text'
