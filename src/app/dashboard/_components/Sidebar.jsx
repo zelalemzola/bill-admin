@@ -15,7 +15,7 @@ const Sidebar = () => {
         </div>
         
         <div className='border-b border-b-primary p-3'>
-        <Link href='/dashboard/businesses' className='flex items-center justify-evenly top-1 text-primary hover:text-white hover:bg-primary p-2 rounded-lg'>
+        <Link href='/dashboard/businesses' className='flex items-center justify-evenly top-1 text-primary hover:text-white hover:bg-primary p-3 rounded-lg'>
         <BriefcaseBusiness/> 
         <h1 className='text-bold  '>Businesses</h1>
         </Link>

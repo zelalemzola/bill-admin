@@ -82,12 +82,12 @@ const Categories = () => {
             <tr key={category._id} className='border'>
               <td className='border px-3 py-2'>{category.name}</td>
               <td className='border px-3 py-2'>    
-                   <Button onClick={() => editCategory(category)} className='bg-green-700 hover:bg-green-800 text-white' >Edit</Button>   
+                   <Button onClick={() => editCategory(category)} className='bg-green-700 hover:bg-green-800   text-white' >Edit</Button>   
                  
               </td>
               <td className='border px-3 py-2'>    
               
-                   <Button onClick={() => deleteCategory(category._id)}>Delete</Button>
+                   <Button onClick={() => deleteCategory(category._id)} variant='destructive'>Delete</Button>
               </td>
             </tr>
           ))}

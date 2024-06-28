@@ -285,7 +285,7 @@ const Businesses = () => {
                 <td className='border px-3 py-2'>{business.bannerImageUrl}</td>
                 <td className='border px-3 py-2'>
                   <Drawer>
-                    <DrawerTrigger className='bg-green-700 hover:bg-green-800 w-full p-2 rounded-lg text-white'>Edit</DrawerTrigger>
+                    <DrawerTrigger className='bg-green-700 hover:bg-green-800 w-full p-2 px-3 rounded-lg text-white'>Edit</DrawerTrigger>
                     <DrawerContent className='bg-primary'>
                       <DrawerHeader>
                         <DrawerTitle className='text-white'>Edit business Details</DrawerTitle>
@@ -388,14 +388,15 @@ const Businesses = () => {
                       <DrawerFooter>
                         <Button onClick={addBusiness} className='mx-auto bg-green-700 hover:bg-green-800 text-white'>Update Business</Button>
                         <DrawerClose>
-                          <Button variant="destructive">Cancel</Button>
+                          <h1 className='text-white'>If you are done updating click here to close the modal</h1>
+                          <Button variant="destructive">Close</Button>
                         </DrawerClose>
                       </DrawerFooter>
                     </DrawerContent>
                   </Drawer>
                 </td>
                 <td className='border px-3 py-2'>
-                  <Button onClick={() => deleteBusiness(business._id)} className='w-full'>Delete</Button>
+                  <Button onClick={() => deleteBusiness(business._id)} className='w-full' variant='destructive'>Delete</Button>
                 </td>
               </tr>
             ))}
