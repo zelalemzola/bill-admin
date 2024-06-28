@@ -16,7 +16,8 @@ export async function PUT(request) {
 }
 
 export async function DELETE(request) {
-  const { id } = request.nextUrl.searchParams;
+
+  const id = await request.nextUrl.searchParams.get('id');
   await Category.findByIdAndDelete(id);
   return NextResponse.json({ msg: 'Category Deleted' });
 }

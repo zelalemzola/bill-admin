@@ -14,10 +14,11 @@ const Categories = () => {
   const [editingCategory, setEditingCategory] = useState(null);
   const [searchCategory,setSearchCategory] = useState('');
    
-  useEffect(() => {
+  useEffect(()=>{
     fetchCategories();
+
+  },[])
   
-  }, []);
   const fetchCategories = async () => {
     const response = await axios.get('/api/categories');
     setCategories(response.data.categories);
@@ -39,9 +40,11 @@ const Categories = () => {
   const editCategory = (category) => {
     setNewCategory(category.name);
     setEditingCategory(category);
+   
   };
   const deleteCategory = async (id) => {
-    await axios.delete(`/api/categories/${id}`);
+    
+    await axios.delete(`/api/categories/${id}`,{params:{id:id}});
     setCategories(categories.filter(category => category._id !== id));
   };
   
