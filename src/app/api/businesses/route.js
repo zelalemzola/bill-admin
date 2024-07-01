@@ -7,13 +7,14 @@ const LoadDB = async () => {
 };
 LoadDB();
 
+
 export async function GET(request) {
   const businesses = await Business.find().populate('category');
   return NextResponse.json({ businesses });
 }
 
 export async function POST(request) {
-  const { name, category, bannerImageUrl,bannerImageKey, locations, details } = await request.json();
-  const business = await Business.create({ name, category,bannerImageUrl,bannerImageKey,locations,details });
+  const { name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias } = await request.json();
+  const business = await Business.create({ name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias });
   return NextResponse.json({ business });
 }

@@ -45,6 +45,7 @@ import {
 } from "@/components/ui/drawer";
 import { Textarea } from '@/components/ui/textarea';
 
+
 const Businesses = () => {
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -54,9 +55,10 @@ const Businesses = () => {
     name: '',
     category: '',
     bannerImageUrl: '',
-    bannerImageFile: "",
+    bannerImageKey: '',
     locations: [{ address: '', contact: '' }],
     details: '',
+    socialMedias: [{ name: '', link: '' }],
   });
   const [editingBusiness, setEditingBusiness] = useState(null);
 
@@ -93,13 +95,22 @@ const Businesses = () => {
     setNewBusiness({ ...newBusiness, locations: updatedLocations });
   };
 
+  const handleSocialMediaChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedSocialMedias = newBusiness.socialMedias.map((socialMedia, i) =>
+      i === index ? { ...socialMedia, [name]: value } : socialMedia
+    );
+    setNewBusiness({ ...newBusiness, socialMedias: updatedSocialMedias });
+  };
+
   const isFormValid = () => {
-    const { name, category, details, locations } = newBusiness;
+    const { name, category, details, locations, socialMedias } = newBusiness;
     return (
       name.trim() &&
       category &&
       details.trim() &&
-      locations.every(location => location.address.trim() && location.contact.trim())
+      locations.every(location => location.address.trim() && location.contact.trim()) &&
+      socialMedias.every(socialMedia => socialMedia.name.trim() && socialMedia.link.trim())
     );
   };
 
@@ -126,6 +137,7 @@ const Businesses = () => {
         bannerImageKey: '',
         locations: [{ address: '', contact: '' }],
         details: '',
+        socialMedias: [{ name: '', link: '' }],
       });
     } catch (error) {
       console.error("Failed to add or edit business:", error);
@@ -140,6 +152,7 @@ const Businesses = () => {
       bannerImageKey: business.bannerImageKey,
       locations: business.locations,
       details: business.details,
+      socialMedias: business.socialMedias,
     });
     setEditingBusiness(business);
   };
@@ -163,6 +176,20 @@ const Businesses = () => {
     });
   };
 
+  const addSocialMediaField = () => {
+    setNewBusiness({
+      ...newBusiness,
+      socialMedias: [...newBusiness.socialMedias, { name: '', link: '' }],
+    });
+  };
+
+  const removeSocialMediaField = (index) => {
+    setNewBusiness({
+      ...newBusiness,
+      socialMedias: newBusiness.socialMedias.filter((_, i) => i !== index),
+    });
+  };
+
   return (
     <div>
       <div className='fixed bg-white border-b border-b-2 p-2 w-full z-30 px-4 flex gap-40'>
@@ -181,8 +208,8 @@ const Businesses = () => {
               </DialogDescription>
             </DialogHeader>
             <div className='flex flex-col items-start gap-3 '>
-              <ScrollArea className='h-[260px]'>
-                <div className='flex flex-col gap-3 h-[260px] text-black pt-2 py-2'>
+              <ScrollArea className='h-[260px] px-2'>
+                <div className='flex flex-col gap-3 h-[260px] text-black pt-2 py-2 px-2'>
                   <div className='flex items-center gap-2 w-full '>
                     <h1 className='font-bold text-primary'>Name</h1>
                     <Input
@@ -265,6 +292,30 @@ const Businesses = () => {
                       </div>
                     ))}
                     <Button onClick={addLocationField} className='bg-green-700 text-white hover:bg-green-800 w-[80%] mx-auto'>Add Location</Button>
+                  </div>
+                  <div className='flex flex-col gap-3'>
+                    {newBusiness.socialMedias.map((socialMedia, index) => (
+                      <div key={index} className='flex flex-col gap-2'>
+                        <div className='flex items-center gap-2'>
+                          <Input
+                            type="text"
+                            name="name"
+                            value={socialMedia.name}
+                            onChange={(e) => handleSocialMediaChange(index, e)}
+                            placeholder="Social Media Name"
+                          />
+                          <Input
+                            type="text"
+                            name="link"
+                            value={socialMedia.link}
+                            onChange={(e) => handleSocialMediaChange(index, e)}
+                            placeholder="Social Media Link"
+                          />
+                        </div>
+                        <Button onClick={() => removeSocialMediaField(index)} variant='destructive' className='w-[80%] mx-auto'>Remove Social Media</Button>
+                      </div>
+                    ))}
+                    <Button onClick={addSocialMediaField} className='bg-green-700 text-white hover:bg-green-800 w-[80%] mx-auto'>Add Social Media</Button>
                   </div>
                 </div>
               </ScrollArea>
@@ -394,6 +445,30 @@ const Businesses = () => {
                                   </div>
                                 ))}
                                 <Button onClick={addLocationField} className='bg-green-700 text-white hover:bg-green-800'>Add Location</Button>
+                              </div>
+                              <div className='flex flex-col gap-3'>
+                                {newBusiness.socialMedias.map((socialMedia, index) => (
+                                  <div key={index} className='flex flex-col gap-2'>
+                                    <div className='flex items-center gap-2'>
+                                      <Input
+                                        type="text"
+                                        name="name"
+                                        value={socialMedia.name}
+                                        onChange={(e) => handleSocialMediaChange(index, e)}
+                                        placeholder="Social Media Name"
+                                      />
+                                      <Input
+                                        type="text"
+                                        name="link"
+                                        value={socialMedia.link}
+                                        onChange={(e) => handleSocialMediaChange(index, e)}
+                                        placeholder="Social Media Link"
+                                      />
+                                    </div>
+                                    <Button onClick={() => removeSocialMediaField(index)} variant='destructive'>Remove Social Media</Button>
+                                  </div>
+                                ))}
+                                <Button onClick={addSocialMediaField} className='bg-green-700 text-white hover:bg-green-800'>Add Social Media</Button>
                               </div>
                             </div>
                           </ScrollArea>

@@ -12,6 +12,17 @@ const LocationSchema = new mongoose.Schema({
   },
 });
 
+const SocialMediaSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  link: {
+    type: String,
+    required: true,
+  },
+});
+
 const BusinessSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -24,17 +35,16 @@ const BusinessSchema = new mongoose.Schema({
   },
   bannerImageUrl: {
     type: String,
-    
   },
   bannerImageKey: {
     type: String,
-    
   },
   locations: [LocationSchema],
   details: {
     type: String,
     required: true,
   },
+  socialMedias: [SocialMediaSchema],
 });
 
 export default mongoose.models.Business || mongoose.model('Business', BusinessSchema);
