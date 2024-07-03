@@ -1,4 +1,5 @@
-import {connectdb} from "../../../../lib/config/db"
+// app/api/businesses/[id]/route.js
+import { connectdb } from "../../../../lib/config/db";
 import Business from '../../../../lib/models/Business';
 import { NextResponse } from 'next/server';
 
@@ -8,10 +9,10 @@ const LoadDB = async () => {
 LoadDB();
 
 export async function PUT(request) {
-  const { id, name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias } = await request.json();
+  const { id, name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias, likes, clicks } = await request.json();
   const business = await Business.findByIdAndUpdate(
     id, 
-    { name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias },
+    { name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias, likes, clicks },
     { new: true, runValidators: true }
   );
   return NextResponse.json({ business });

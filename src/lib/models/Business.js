@@ -45,6 +45,14 @@ const BusinessSchema = new mongoose.Schema({
     required: true,
   },
   socialMedias: [SocialMediaSchema],
+  likes: {
+    type: Number,
+    default: 0,
+  },
+  clicks: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export default mongoose.models.Business || mongoose.model('Business', BusinessSchema);

@@ -45,7 +45,6 @@ import {
 } from "@/components/ui/drawer";
 import { Textarea } from '@/components/ui/textarea';
 
-
 const Businesses = () => {
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -59,6 +58,8 @@ const Businesses = () => {
     locations: [{ address: '', contact: '' }],
     details: '',
     socialMedias: [{ name: '', link: '' }],
+    likes: 0,
+    clicks: 0,
   });
   const [editingBusiness, setEditingBusiness] = useState(null);
 
@@ -138,6 +139,8 @@ const Businesses = () => {
         locations: [{ address: '', contact: '' }],
         details: '',
         socialMedias: [{ name: '', link: '' }],
+        likes: 0,
+        clicks: 0,
       });
     } catch (error) {
       console.error("Failed to add or edit business:", error);
@@ -153,6 +156,8 @@ const Businesses = () => {
       locations: business.locations,
       details: business.details,
       socialMedias: business.socialMedias,
+      likes: business.likes,
+      clicks: business.clicks,
     });
     setEditingBusiness(business);
   };
@@ -317,6 +322,30 @@ const Businesses = () => {
                     ))}
                     <Button onClick={addSocialMediaField} className='bg-green-700 text-white hover:bg-green-800 w-[80%] mx-auto'>Add Social Media</Button>
                   </div>
+                  <div className='flex flex-col gap-2'>
+                    <div className='flex items-center gap-2'>
+                      <h1 className='font-bold text-primary'>Likes</h1>
+                      <Input
+                        type="number"
+                        name="likes"
+                        value={newBusiness.likes}
+                        onChange={handleBusinessChange}
+                        placeholder="Likes"
+                        className='w-[80%]'
+                      />
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      <h1 className='font-bold text-primary'>Clicks</h1>
+                      <Input
+                        type="number"
+                        name="clicks"
+                        value={newBusiness.clicks}
+                        onChange={handleBusinessChange}
+                        placeholder="Clicks"
+                        className='w-[80%]'
+                      />
+                    </div>
+                  </div>
                 </div>
               </ScrollArea>
               <div>
@@ -338,6 +367,8 @@ const Businesses = () => {
               <th className='border'>Name</th>
               <th className='border'>Category</th>
               <th className='border'>ImageUrl</th>
+              <th className='border'>Likes</th>
+              <th className='border'>Clicks</th>
               <th className='border'>Edit</th>
               <th className='border'>Delete</th>
             </tr>
@@ -350,6 +381,8 @@ const Businesses = () => {
                 <td className='border px-3 py-2'>{business.name}</td>
                 <td className='border px-3 py-2'>{business.category.name}</td>
                 <td className='border px-3 py-2'>{business.bannerImageUrl}</td>
+                <td className='border px-3 py-2'>{business.likes}</td>
+                <td className='border px-3 py-2'>{business.clicks}</td>
                 <td className='border px-3 py-2'>
                   <Drawer>
                     <DrawerTrigger className='bg-green-700 hover:bg-green-800 w-full p-2 px-3 rounded-lg text-white'>Edit</DrawerTrigger>
@@ -469,6 +502,30 @@ const Businesses = () => {
                                   </div>
                                 ))}
                                 <Button onClick={addSocialMediaField} className='bg-green-700 text-white hover:bg-green-800'>Add Social Media</Button>
+                              </div>
+                              <div className='flex flex-col gap-2'>
+                                <div className='flex items-center gap-2'>
+                                  <h1 className='font-bold text-primary'>Likes</h1>
+                                  <Input
+                                    type="number"
+                                    name="likes"
+                                    value={newBusiness.likes}
+                                    onChange={handleBusinessChange}
+                                    placeholder="Likes"
+                                    className='w-[80%]'
+                                  />
+                                </div>
+                                <div className='flex items-center gap-2'>
+                                  <h1 className='font-bold text-primary'>Clicks</h1>
+                                  <Input
+                                    type="number"
+                                    name="clicks"
+                                    value={newBusiness.clicks}
+                                    onChange={handleBusinessChange}
+                                    placeholder="Clicks"
+                                    className='w-[80%]'
+                                  />
+                                </div>
                               </div>
                             </div>
                           </ScrollArea>

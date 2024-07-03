@@ -1,5 +1,6 @@
-import {connectdb} from "../../../lib/config/db"
-import Business from '../../../lib/models/Business'
+// app/api/businesses/route.js
+import { connectdb } from "../../../lib/config/db";
+import Business from '../../../lib/models/Business';
 import { NextResponse } from 'next/server';
 
 const LoadDB = async () => {
@@ -7,14 +8,13 @@ const LoadDB = async () => {
 };
 LoadDB();
 
-
 export async function GET(request) {
   const businesses = await Business.find().populate('category');
   return NextResponse.json({ businesses });
 }
 
 export async function POST(request) {
-  const { name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias } = await request.json();
-  const business = await Business.create({ name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias });
+  const { name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias, likes = 0, clicks = 0 } = await request.json();
+  const business = await Business.create({ name, category, bannerImageUrl, bannerImageKey, locations, details, socialMedias, likes, clicks });
   return NextResponse.json({ business });
 }
