@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './_components/Navbar'
 import Sidebar from './_components/Sidebar'
+import '@mantine/tiptap/styles.css';
 
 
 
@@ -13,7 +14,7 @@ const layout = ({children}) => {
         <div className='pl-[17%]'>{children}</div>
     </div>
     </div>
-  )
+  );
 }
 
 export default layout
