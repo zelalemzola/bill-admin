@@ -172,8 +172,11 @@ const Businesses = () => {
     }
   };
 
-  const editBusiness = (business) => { 
-    setContent(business.details);
+  const editBusiness = (business) => {
+    setContent(business.details); // Update the content state
+    if (editor) {
+      editor.commands.setContent(business.details); // Update the editor content
+    }
     setNewBusiness({
       name: business.name,
       category: business.category._id,
@@ -185,10 +188,9 @@ const Businesses = () => {
       likes: business.likes,
       clicks: business.clicks,
     });
-   
     setEditingBusiness(business);
   };
-
+  
   const deleteBusiness = async (id) => {
     await axios.delete(`/api/businesses/${id}`, { params: { id: id } });
     setBusinesses(businesses.filter(business => business._id !== id));
@@ -232,14 +234,14 @@ const Businesses = () => {
               <h1 className=' text-white'>Add a Business</h1>
             </div>
   </DrawerTrigger>
-  <DrawerContent className='h-[95%]'>
-    <DrawerHeader>
-      <DrawerTitle>Add the new business here</DrawerTitle>
-      <DrawerDescription>carefully input all values</DrawerDescription>
+  <DrawerContent className='h-[95%] bg-primary'>
+    <DrawerHeader className='bg-primary'>
+      <DrawerTitle className='text-white'>Add the new business here</DrawerTitle>
+      <DrawerDescription className='text-white'>carefully input all values</DrawerDescription>
     </DrawerHeader>
     <div className='flex flex-col items-start gap-3 '>
-              <ScrollArea className='h-[260px] px-2 w-full'>
-                <div className='flex flex-col gap-3 h-[260px] text-black pt-2 py-2 px-2'>
+              <ScrollArea className='h-full px-2 w-full bg-white'>
+                <div className='flex flex-col gap-3 h-[360px] text-black pt-2 py-2 px-2'>
                   <div className='flex items-center gap-2'>
                   <div className='flex items-center gap-2 w-1/2 '>
                     <h1 className='font-bold text-primary'>Name</h1>
@@ -423,18 +425,18 @@ const Businesses = () => {
                   </div>
                 </div>
               </ScrollArea>
-              <div>
+              <div className='bg-primary w-full'>
                 <Button onClick={addBusiness} className='mx-auto bg-green-700 hover:bg-green-800 text-white' disabled={!isFormValid()}>Add Business</Button>
               </div>
             </div>
-    <DrawerFooter>
+    <DrawerFooter className='bg-primary'>
       <DrawerClose>
         <Button variant="destructive">Cancel</Button>
       </DrawerClose>
     </DrawerFooter>
   </DrawerContent>
 </Drawer>
-        <div className='flex items-center gap-2 border border-primary w-[30%] rounded-lg p-2'>
+        <div className='flex items-center gap-2 border border-primary w-[30%] rounded-lg p-2 '>
           <Search className='text-primary font-bold' />
           <input type='text' className='outline-none border-none w-full' placeholder='Search for Added Businesses....' value={searchBusiness} onChange={(e) => setSearchBusiness(e.target.value)} />
         </div>
@@ -468,17 +470,19 @@ const Businesses = () => {
                 <td className='border px-3 py-2'>
                   <Drawer>
                     <DrawerTrigger className='bg-green-700 hover:bg-green-800 w-full p-2 px-3 rounded-lg text-white'>Edit</DrawerTrigger>
-                    <DrawerContent className='bg-primary'>
-                      <DrawerHeader>
+                    <DrawerContent className='bg-primary h-[95%]'>
+                      <DrawerHeader className=' flex items-center justify-center gap-4'>
                         <DrawerTitle className='text-white'>Edit business Details</DrawerTitle>
-                        <DrawerDescription className='text-white'>Carefully input values</DrawerDescription>
+                        <DrawerDescription className='text-white'>
+                        <Button onClick={() => editBusiness(business)} className=' mx-auto bg-green-700 hover:bg-green-800 text-white'>Click here first and start editing</Button>
+                        </DrawerDescription>
                       </DrawerHeader>
-                      <div className='flex flex-col gap-2 w-[60%] mx-auto'>
-                        <Button onClick={() => editBusiness(business)} className='mx-auto bg-green-700 hover:bg-green-800 text-white'>Click here first and start editing</Button>
+                      <div className='flex flex-col gap-2 w-full mx-auto relative '>
                         <div className='flex flex-col  items-start gap-3 bg-cyan-800 rounded-lg '>
-                          <ScrollArea className='h-[260px] mx-auto p-2 px-20 bg-white'>
-                            <div className='flex flex-col gap-3 h-[260px] text-black pt-2 py-2'>
-                              <div className='flex items-center gap-2 w-full '>
+                          <ScrollArea className='h-[310px] mx-auto p-2 px-20 bg-white w-full'>
+                            <div className='flex flex-col gap-3 h-full text-black pt-2 py-2'>
+                              <div className='flex gap-4 flex-wrap'>
+                              <div className='flex items-center gap-2 w-1/2 '>
                                 <h1 className='font-bold text-primary'>Name</h1>
                                 <Input
                                   type="text"
@@ -486,10 +490,10 @@ const Businesses = () => {
                                   value={newBusiness.name}
                                   onChange={handleBusinessChange}
                                   placeholder="Business Name"
-                                  className='w-[80%]'
+                                  className='w-full'
                                 />
                               </div>
-                              <div className='flex items-center gap-2 w-full'>
+                              <div className='flex items-center gap-2'>
                                 <h1 className='text-primary font-bold'>Select Category</h1>
                                 <select
                                   name="category"
@@ -504,6 +508,7 @@ const Businesses = () => {
                                     </option>
                                   ))}
                                 </select>
+                              </div>
                               </div>
                               <div className='flex flex-col  gap-5'>
                                 <div className='flex items-center justify-start gap-2'>
