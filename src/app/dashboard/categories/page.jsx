@@ -2,10 +2,22 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button } from "@/components/ui/button"
-import { Search } from 'lucide-react'
+import { Search, TriangleAlert } from 'lucide-react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+
   const [newCategory, setNewCategory] = useState('');
   const [editingCategory, setEditingCategory] = useState(null);
   const [searchCategory, setSearchCategory] = useState('');
@@ -95,7 +107,27 @@ const Categories = () => {
                   <Button onClick={() => editCategory(category)} className='bg-green-700 hover:bg-green-800 text-white'>Edit</Button>
                 </td>
                 <td className='border px-3 py-2'>
-                  <Button onClick={() => deleteCategory(category._id)} variant='destructive'>Delete</Button>
+                <AlertDialog>
+  <AlertDialogTrigger>
+  <Button variant='destructive'>Delete</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent >
+    <AlertDialogHeader>
+      <AlertDialogTitle className='flex items-center gap-2 justify-center'><TriangleAlert color='red' size={32}/>Are you absolutely sure?</AlertDialogTitle>
+      <AlertDialogDescription >
+       This action cannot be undone. This will permanently delete the category and also the business billbaords created under it.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter className='flex items-center justify-center'>
+      <AlertDialogCancel className='py-3'>Cancel</AlertDialogCancel>
+      <AlertDialogAction className='bg-red-500 hover:bg-red-500'>
+      <Button onClick={() => deleteCategory(category._id)} variant='destructive'>Delete</Button>
+      </AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+
+                 
                 </td>
               </tr>
             ))}
